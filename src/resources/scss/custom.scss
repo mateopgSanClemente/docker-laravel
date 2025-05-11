@@ -1,0 +1,20 @@
+$primary: #004085 !default; // Permite sobreescribir variables si ya están definidas
+$secondary: #6c757d !default;
+$success: #fcf801 !default;
+$info: #17a2b8 !default;
+$warning: #ffc107 !default;
+$danger: #dc3545 !default;
+$light: #f8f9fa !default;
+$dark: #343a40 !default;
+
+// Usa Bootstrap con @use
+@use "bootstrap" with (
+    $primary: $primary,
+    $secondary: $secondary,
+    $success: $success,
+    $info: $info,
+    $warning: $warning,
+    $danger: $danger,
+    $light: $light,
+    $dark: $dark
+);

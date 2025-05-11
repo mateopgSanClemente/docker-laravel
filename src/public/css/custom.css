@@ -1,0 +1,178 @@
+/* Cambiar colores de los botones normales */
+.btn-primary {
+    background-color: #004085 !important;
+    border-color: #004085 !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover {
+    background-color: #002752 !important; /* Color de fondo al pasar el mouse */
+    border-color: #002752 !important;    /* Color del borde al pasar el mouse */
+    color: #ffffff !important;
+}
+
+.btn-secondary {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: #ffffff !important;
+}
+
+.btn-secondary:hover {
+    background-color: #565e64 !important;
+    border-color: #565e64 !important;
+    color: #ffffff !important;
+}
+
+.btn-success {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+    color: #ffffff !important;
+}
+
+.btn-success:hover {
+    background-color: #1e7e34 !important;
+    border-color: #1c7430 !important;
+    color: #ffffff !important;
+}
+
+.btn-danger {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+.btn-danger:hover {
+    background-color: #bd2130 !important;
+    border-color: #b21f2d !important;
+    color: #ffffff !important;
+}
+
+.btn-warning {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800 !important;
+    border-color: #d39e00 !important;
+    color: #212529 !important;
+}
+
+.btn-info {
+    background-color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
+    color: #ffffff !important;
+}
+
+.btn-info:hover {
+    background-color: #117a8b !important;
+    border-color: #10707f !important;
+    color: #ffffff !important;
+}
+
+.btn-light {
+    background-color: #f8f9fa !important;
+    border-color: #f8f9fa !important;
+    color: #212529 !important;
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea !important;
+    border-color: #dae0e5 !important;
+    color: #212529 !important;
+}
+
+.btn-dark {
+    background-color: #343a40 !important;
+    border-color: #343a40 !important;
+    color: #ffffff !important;
+}
+
+.btn-dark:hover {
+    background-color: #23272b !important;
+    border-color: #1d2124 !important;
+    color: #ffffff !important;
+}
+
+/* Cambiar colores de los botones de bordes (outline) */
+.btn-outline-primary {
+    color: #004085 !important;
+    border-color: #004085 !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #004085 !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-secondary {
+    color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-success {
+    color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.btn-outline-success:hover {
+    background-color: #28a745 !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-danger {
+    color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-warning {
+    color: #ffc107 !important;
+    border-color: #ffc107 !important;
+}
+
+.btn-outline-warning:hover {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.btn-outline-info {
+    color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
+}
+
+.btn-outline-info:hover {
+    background-color: #17a2b8 !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-light {
+    color: #f8f9fa !important;
+    border-color: #f8f9fa !important;
+    background-color: transparent !important;
+}
+
+.btn-outline-light:hover {
+    background-color: #f8f9fa !important;
+    color: #212529 !important;
+}
+
+.btn-outline-dark {
+    color: #343a40 !important;
+    border-color: #343a40 !important;
+}
+
+.btn-outline-dark:hover {
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+}
