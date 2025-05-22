@@ -46,4 +46,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Relación (1,M) con la tabla users
+    public function citas() {
+        return $this->hasMany(Cita::class);
+    }
 }
