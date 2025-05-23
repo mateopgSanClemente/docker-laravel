@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            // Añadir campo role
+            $table->enum('role',['cliente', 'taller'])->default('cliente');
         });
     }
 
@@ -22,8 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Añadir campo role
-            $table->enum('role',['cliente', 'taller'])->default('cliente');
+            $table->dropColumn('role');
         });
     }
 };
