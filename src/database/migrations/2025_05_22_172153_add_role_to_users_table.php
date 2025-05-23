@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // Añadir campo role
-            $table->enum('role',['cliente', 'taller'])->default('cliente');
+            $table->enum('role',['cliente', 'taller'])->after('email')->default('cliente');
         });
     }
 
