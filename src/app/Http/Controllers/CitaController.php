@@ -77,7 +77,7 @@ class CitaController extends Controller
     public function show(Cita $cita)
     {
         // Si el usuario que solicita ver los detalles de la cita tiene el rol 'cliente' y su 'id' no se correcponde con el 'user_id' de la cita, no se permite la visualización de la página.
-        if(Auth::user()->role === 'cliente' && Auth::user()->id !== $cita->user_id) {
+        if(Auth::user()->role === 'cliente' && Auth::user()->id !== $cita->user_id) { // Control de acceso explícito. Evita que los clientes vean citas ajenas
             abort(403);
         }
 
@@ -109,7 +109,7 @@ class CitaController extends Controller
     /**
      * Actualiza una cita
      */
-    public function update(Request $request, Cita $cita)
+    public function edit(Request $request, Cita $cita)
     {
         // Reglas de validación para la request
         $validated = $request->validate([
