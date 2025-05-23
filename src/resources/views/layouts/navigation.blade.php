@@ -16,6 +16,9 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                @if (auth()->check())
+                    <x-citas-nav :role="auth()->user()->role" />
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
