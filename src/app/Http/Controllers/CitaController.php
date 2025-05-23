@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 // Importar middleware para mostrar páginas en función del role.
-use App\Http\Middlewawre\CheckRole;
+use App\Http\Middleware\CheckRole;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -16,16 +16,21 @@ class CitaController extends Controller
 {
 
     // Aplicamos el middlware CheckRole a todo el controlador
+    /*
+     * LÍNEA TEMPORALMENTE COMENTADA: Al parecer en Laravel 11 el método middleware() ya no existe dentro de los controladores
     public function __construct()
     {
         $this->middleware('auth');
         
         // Sólo clientes
-        $this->middleware(CheckRole::class . 'cliente')->only(['index', 'create', 'store']);
+        $this->middleware(CheckRole::class . ':cliente')
+            ->only(['index', 'create', 'store']);
 
         // Sólo taller
-        $this->middleware(CheckRole::class . 'taller')->(['indexTaller', 'indexPendientes', 'edit', 'update', 'destroy']);
+        $this->middleware(CheckRole::class . ':taller')
+            ->only(['indexTaller', 'indexPendientes', 'edit', 'update', 'destroy']);
     }
+    */
 
     /* ====== CLIENTE ====== */
 
@@ -52,7 +57,7 @@ class CitaController extends Controller
     public function store(Request $request)
     {
         // Reglas de validación para las citas registradas
-        $validated = $request->validate([
+        $data = $request->validate([
             'marca' => 'required|string|max:50',
             'modelo'    => 'required|string|max:50',
             'matricula' => 'required|string|max:10|unique:citas,matricula',
@@ -65,7 +70,8 @@ class CitaController extends Controller
             'duracion_estimada' => null,
         ]);
         
-        return redirect()->route('citas.index')->with('success', 'Cita solicitada correctamente');
+        return redirect()->route('cliente.citas.index')
+            ->with('success', 'Cita solicitada correctamente');
     }
 
     /* ====== VISTA COMÚN ====== */
@@ -102,14 +108,26 @@ class CitaController extends Controller
     public function indexPendiente()
     {
         // Carga todas las citas con el estado 'pediente'
-        $citas = Cita::where('estado', 'pendiente')->with('user')->latest()->get();
-        return view('taller.pendiente', compact('citas'));
+        $citas = Cita::where('estado', 'pendiente')
+            ->with('user')
+            ->latest()
+            ->get();
+
+        return view('taller.pendientes', compact('citas'));
+    }
+
+    /**
+     * Formulario de edición
+     */
+    public function edit(Cita $cita)
+    {
+        return view('taller.edit', compact('cita'));
     }
 
     /**
      * Actualiza una cita
      */
-    public function edit(Request $request, Cita $cita)
+    public function update(Request $request, Cita $cita)
     {
         // Reglas de validación para la request
         $validated = $request->validate([
@@ -120,10 +138,10 @@ class CitaController extends Controller
         ]);
 
         // Actualiza los datos de en la tabla 'citas'
-        $cita->update($validated);
+        $cita->update($data);
 
         // Redirigir a la página index que muestra las citas para el taller
-        return redirect()->route('taller.citas')->with('success', 'Cita actualizada');
+        return redirect()->route('taller.citas.index')->with('success', 'Cita actualizada');
     }
 
     /**
@@ -132,9 +150,9 @@ class CitaController extends Controller
     public function destroy(Cita $cita)
     {
         // Elimina la cita de la base de datos
-        $cite->delete();
+        $cita->delete();
 
         // Redirecciona a la página index del taller
-        return redirect()->route('taller.citas')->with('success', 'Cita Eliminada');
+        return redirect()->route('taller.citas.index')->with('success', 'Cita Eliminada');
     }
 }
