@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+// Importa el trait HasFactory
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Cita extends Model
 {
     use HasFactory; // Permite el uso de factory (asignación masiva de datos)
