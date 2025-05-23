@@ -98,14 +98,14 @@ class CitaController extends Controller
     public function indexTaller()
     {
         // Carga todas las citas con sus usuarios asociados
-        $citas = Cita::with('user')-latest()->get(); // Eager Loading, evita el problema 1+N
+        $citas = Cita::with('user')->latest()->get(); // Eager Loading, evita el problema 1+N
         return view('taller.index', compact('citas'));
     }
 
     /**
      * Muestra todas la citas con el estado 'pendiete'
      */
-    public function indexPendiente()
+    public function indexPendientes()
     {
         // Carga todas las citas con el estado 'pediente'
         $citas = Cita::where('estado', 'pendiente')
@@ -130,7 +130,7 @@ class CitaController extends Controller
     public function update(Request $request, Cita $cita)
     {
         // Reglas de validación para la request
-        $validated = $request->validate([
+        $data = $request->validate([
             'fecha' => 'required|date|after_or_equal:today', // La fecha no puede ser anterior a la actual
             'hora' => 'required|date_format:H:i', // El formato para la hora de la cita mostrará la hora y los minutos.
             'duracion_estimada' => 'required|integer|min:1', // La duración mínima de la cita será de 1 minuto.
