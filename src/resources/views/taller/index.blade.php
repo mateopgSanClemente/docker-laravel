@@ -1,0 +1,154 @@
+{{--  Vista: Listado de TODAS las citas (rol “taller”)  --}}
+<x-app-layout>
+    {{-- ╭───────────────────────────  Título  ───────────────────────────╮ --}}
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Citas registradas') }}
+        </h2>
+    </x-slot>
+    {{-- ╰───────────────────────────────────────────────────────────────╯ --}}
+
+    {{-- Navegador interno (opcional) --}}
+    <x-citas-nav />
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+
+                    {{-- Flash de éxito --}}
+                    @if (session('success'))
+                        <div class="mb-4 font-medium text-sm text-green-600">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if ($citas->isEmpty())
+                        <p class="text-sm text-gray-500">
+                            {{ __('No hay citas registradas.') }}
+                        </p>
+                    @else
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        {{-- Solicitante --}}
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __('Cliente') }}
+                                        </th>
+                                        {{-- Vehículo --}}
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __('Vehículo') }}
+                                        </th>
+                                        {{-- Matrícula --}}
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __('Matrícula') }}
+                                        </th>
+                                        {{-- Fecha --}}
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __('Fecha') }}
+                                        </th>
+                                        {{-- Hora --}}
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __('Hora') }}
+                                        </th>
+                                        {{-- Estado --}}
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __('Estado') }}
+                                        </th>
+                                        {{-- Acciones --}}
+                                        <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __('Acciones') }}
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    @foreach ($citas as $cita)
+                                        <tr>
+                                            {{-- Cliente --}}
+                                            <td class="px-4 py-4 whitespace-nowrap">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    {{ $cita->user->name }}
+                                                </div>
+                                                <div class="text-sm text-gray-500">
+                                                    {{ $cita->user->email }}
+                                                </div>
+                                            </td>
+
+                                            {{-- Vehículo --}}
+                                            <td class="px-4 py-4 whitespace-nowrap">
+                                                <span class="text-sm text-gray-900">
+                                                    {{ $cita->marca }} {{ $cita->modelo }}
+                                                </span>
+                                            </td>
+
+                                            {{-- Matrícula --}}
+                                            <td class="px-4 py-4 whitespace-nowrap uppercase">
+                                                <span class="text-sm text-gray-900">
+                                                    {{ $cita->matricula }}
+                                                </span>
+                                            </td>
+
+                                            {{-- Fecha --}}
+                                            <td class="px-4 py-4 whitespace-nowrap">
+                                                <span class="text-sm text-gray-900">
+                                                    {{ $cita->fecha ? \Illuminate\Support\Carbon::parse($cita->fecha)->format('d/m/Y') : '—' }}
+                                                </span>
+                                            </td>
+
+                                            {{-- Hora --}}
+                                            <td class="px-4 py-4 whitespace-nowrap">
+                                                <span class="text-sm text-gray-900">
+                                                    {{ $cita->hora ?? '—' }}
+                                                </span>
+                                            </td>
+
+                                            {{-- Estado --}}
+                                            <td class="px-4 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                                    {{ $cita->estado === 'pendiente' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800' }}">
+                                                    {{ ucfirst($cita->estado) }}
+                                                </span>
+                                            </td>
+
+                                            {{-- Acciones --}}
+                                            <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
+                                                <div class="flex items-center justify-end gap-4">
+                                                    {{-- Ver --}}
+                                                    <a href="{{ route('citas.show', $cita) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900">
+                                                        {{ __('Ver') }}
+                                                    </a>
+
+                                                    {{-- Editar --}}
+                                                    <a href="{{ route('taller.citas.edit', $cita) }}"
+                                                    class="text-blue-600 hover:text-blue-900">
+                                                        {{ __('Editar') }}
+                                                    </a>
+
+                                                    {{-- Eliminar --}}
+                                                    <form action="{{ route('taller.citas.destroy', $cita) }}"
+                                                        method="POST" class="inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                                class="text-red-600 hover:text-red-900"
+                                                                onclick="return confirm('{{ __('¿Eliminar esta cita?') }}')">
+                                                            {{ __('Eliminar') }}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
