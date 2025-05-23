@@ -63,7 +63,7 @@ class CitaController extends Controller
             'matricula' => 'required|string|max:10|unique:citas,matricula',
         ]);
 
-        Auth::user()->citas()->create($validated + [
+        Auth::user()->citas()->create($data + [
             'estado' => 'pendiente', // Por defecto
             'fecha' => null,
             'hora' => null,
