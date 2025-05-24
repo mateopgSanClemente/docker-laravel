@@ -18,6 +18,9 @@
                 </div>
                 @if (auth()->check())
                     <x-citas-nav :role="auth()->user()->role" />
+                    <x-nav-link :href="route('coches.gestion')" :active="request()->routeIs('coches.manage')">
+                        {{ __('Mis coches') }}
+                    </x-nav-link>
                 @endif
             </div>
 

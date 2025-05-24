@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 //Datos: marca, modelo, matrícula y relación con cliente (users). Todos son obligatorios.
 // Importa el trait HasFactory
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Validation\Rule;
 
 class Coche extends Model
 {
@@ -14,7 +15,7 @@ class Coche extends Model
 
     // Campos para la asignación masiva de datos
     protected $fillable = [
-        'user_id'
+        'user_id',
         'marca',
         'modelo',
         'matricula',

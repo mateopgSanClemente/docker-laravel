@@ -5,9 +5,13 @@ use Illuminate\Support\Facades\Route;
 
 // Importar controlador para citas
 use App\Http\Controllers\CitaController;
+// Controlador puente para visualizar los coches
+use App\Http\Controllers\CocheGestionController;
 
 // Importar el middleware
 use App\Http\Middleware\CheckRole;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -66,6 +70,13 @@ Route::middleware('auth')->group(function () {
     /* ====== RUTAS COMUNES (CITAS + TALLER) ====== */
     Route::get('/citas/{cita}', [CitaController::class, 'show'])->name('citas.show');
 
+    /* ====== RUTAS PARA COCHES ====== */
+
+    /**
+     * Panel para gestionar los coches propios
+     */
+    Route::get('/coches', [CocheGestionController::class, 'index'])
+        ->name('coches.gestion');
 });
 
 require __DIR__.'/auth.php';
