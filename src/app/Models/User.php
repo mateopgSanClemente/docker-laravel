@@ -47,7 +47,15 @@ class User extends Authenticatable
         ];
     }
 
-    // Relación (1,M) con la tabla users
+
+    /* ====== RELACIONES ====== */
+
+    // Relación (1,M) con la tabla coches
+    public function coches() {
+        return $this->hasMany(Coche::class);
+    }
+
+    // Relación (1,M) con la tabla citas
     public function citas() {
         return $this->hasMany(Cita::class);
     }
